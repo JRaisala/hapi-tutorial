@@ -1,0 +1,22 @@
+{
+  "name": "init",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JRaisala/hapi-tutorial.git"
+  },
+  "author": "JRaisala",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JRaisala/hapi-tutorial/issues"
+  },
+  "homepage": "https://github.com/JRaisala/hapi-tutorial#readme",
+  "dependencies": {
+    "hapi": "^18.0.0"
+  }
+}
