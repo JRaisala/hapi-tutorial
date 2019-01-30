@@ -1,51 +1,50 @@
 'use strict';
 
 const Hapi = require('hapi');
+const Path = require('path')
+const Handlebars = require('handlebars')
 
+// create new server instance and connection information
 const server = Hapi.server({
     port: 3000,
 	host: 'localhost'
 });
 
-const liftoff = async () => {
-
-	await server.register([{
-        plugin: require('hapi-geo-locate'),
-        options: {
-			enablebyDefault: true
+// register plugins, configure views and start the server instance
+async function start () {
+	// register plugins to server instance
+	await server.register([
+		{
+		plugin: require('inert')
 		},
-		plugin: require('./server/my-custom-plugin'),
-		options: {
-			name: 'JR',
-			isDeveloper: true
-		},
-	}]);
+		{
+		plugin: require('vision')
+		}
+	])
 
-	await server.register(require('inert'));
-
-	await server.register(require('vision'));
+	// view configuration
+	const viewsPath = Path.resolve(__dirname, 'public', 'views')
 
     server.views({
         engines: {
-            html: require('handlebars')
+            html: Handlebars
         },
         relativeTo: __dirname,
         path: './views',
 	})
 
-	
+
+	// start your server
 	try {
 		await server.start()
-			
 		console.log("Server started at " + server.info.uri);
 	} catch (err) {
-	
-	  console.log("Hapi error starting server", err);
-	
+		console.log("Error starting server!!!", err);
+		process.exit(1)
 	}
-};
+}
 
-liftoff();
+start();
 
 server.route({
     method: 'GET',
