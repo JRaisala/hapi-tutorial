@@ -19,7 +19,17 @@ async function start () {
 		},
 		{
 		plugin: require('vision')
+		},
+		{
+		plugin: require('good'),
+		options: {
+			reporters: {
+			myConsoleReporter: [{
+				module: 'good-console'
+			}, 'stdout']
+			}
 		}
+	}
 	])
 
 	// view configuration
@@ -44,7 +54,7 @@ async function start () {
 	}
 }
 
-start();
+start()
 
 server.route({
     method: 'GET',
