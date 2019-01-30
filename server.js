@@ -4,7 +4,7 @@ const Hapi = require('hapi');
 
 const server = Hapi.server({
     port: 3000,
-    host: 'localhost'
+	host: 'localhost'
 });
 
 const myServer = async () => {
@@ -35,6 +35,8 @@ const start = async () => {
 		},
 	}]);
 
+	await server.register(require('inert'));
+
     await server.register(require('vision'));
 
     server.views({
@@ -56,6 +58,15 @@ server.route({
 		var data = { name: 'Juha' }
 
 		return h.view('index', data);
+    }
+});
+
+server.route({
+    method: 'GET',
+    path: '/file.js',
+    handler: (request, h) => {
+
+		return h.file('./public/js/file.js');
     }
 });
 
