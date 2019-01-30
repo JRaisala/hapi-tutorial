@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/JRaisala/hapi-tutorial#readme",
   "dependencies": {
+    "handlebars": "^4.0.12",
     "hapi": "^18.0.0",
-    "hapi-geo-locate": "^3.1.2"
+    "hapi-geo-locate": "^3.1.2",
+    "vision": "^5.4.4"
   }
 }
