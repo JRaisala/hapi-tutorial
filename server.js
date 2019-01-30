@@ -9,6 +9,23 @@ const server = Hapi.server({
 });
  
 
+
+const start = async function () {
+
+    await server.register([{
+        plugin: require('hapi-geo-locate'),
+        options: {
+            enablebyDefault: true
+		},
+		plugin: require('./server/my-custom-plugin'),
+		options: {
+			name: 'JR',
+			isDeveloper: true
+		},
+	}]);
+};
+
+
 server.route({
     method: 'GET',
     path: '/',
@@ -22,7 +39,7 @@ server.route({
 
 server.route({
     method: 'GET',
-    path: '/{name}',
+    path: '/test1/{name}',
     handler: (request, h) => {
 
         return 'Hello, ' + encodeURIComponent(request.params.name) + '!';
@@ -39,17 +56,6 @@ const myServer = async () => {
 	
 	}
   };
-
-  const start = async function () {
-
-    await server.register({
-        plugin: require('hapi-geo-locate'),
-        options: {
-            enablebtDefault: true
-        }
-    });
-};
-
 
   
 myServer(); // don't forget to call it
