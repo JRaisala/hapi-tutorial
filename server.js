@@ -7,21 +7,7 @@ const server = Hapi.server({
 	host: 'localhost'
 });
 
-const myServer = async () => {
-	try {
-		await server.start()
-			
-		console.log("Server started at " + server.info.uri);
-	} catch (err) {
-	
-	  console.log("Hapi error starting server", err);
-	
-	}
-  };
-
-myServer();
-
-const start = async () => {
+const liftoff = async () => {
 
 	await server.register([{
         plugin: require('hapi-geo-locate'),
@@ -37,7 +23,7 @@ const start = async () => {
 
 	await server.register(require('inert'));
 
-    await server.register(require('vision'));
+	await server.register(require('vision'));
 
     server.views({
         engines: {
@@ -45,11 +31,21 @@ const start = async () => {
         },
         relativeTo: __dirname,
         path: './views',
-    });
+	})
+
+	
+	try {
+		await server.start()
+			
+		console.log("Server started at " + server.info.uri);
+	} catch (err) {
+	
+	  console.log("Hapi error starting server", err);
+	
+	}
 };
 
-start();
-
+liftoff();
 
 server.route({
     method: 'GET',
