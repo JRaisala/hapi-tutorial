@@ -1,44 +1,58 @@
-const Hapi = require('hapi') 
+'use strict';
 
-const server = Hapi.Server({
-	host: 'localhost',
-	port: 3000
-})
+const Hapi = require('hapi');
 
-	// TODO add routes to your server to accept request
-	server.route ({
-		method: 'GET',
-		path: '/',
-		handler: (request, h) => {
-			return 'Hello world!'
-		  }
-	})
 
-server.route ({
-	method: 'GET',
-	path: '/blog/{page}',
-	handler: (request, h) => {
-		return ('Hello world!' + request.params.page)
-	  },
-	  config: {
-		  tags: [ 'blog'],
-		  description: 'just a simple blog page route',
-		  notes: 'text'
-	  }
-})
+const server = Hapi.server({
+    port: 3000,
+    host: 'localhost'
+});
+ 
 
-server.route ({
-	method: 'POST',
-	path: '/',
-	handler: (request, h) => {
-		return ('Created item')
-	  }
-})
+server.route({
+    method: 'GET',
+    path: '/',
+    handler: (request, h) => {
+		//reply(request.location)
+		const response = h.response(request.location);
+		response.type('text/plain');
+		return response;
+    }
+});
 
-server.start(function (err) {
-	if (err) {
-		throw err
+server.route({
+    method: 'GET',
+    path: '/{name}',
+    handler: (request, h) => {
+
+        return 'Hello, ' + encodeURIComponent(request.params.name) + '!';
+    }
+});
+
+
+const myServer = async () => {
+	try {
+		await server.start()
+	} catch (err) {
+	
+	  console.log("Hapi error starting server", err);
+	
 	}
+  };
 
-console.log('Server started at: ' + server.info.uri)
-})
+  const start = async function () {
+
+    await server.register({
+        plugin: require('hapi-geo-locate'),
+        options: {
+            enablebtDefault: true
+        }
+    });
+};
+
+
+  
+myServer(); // don't forget to call it
+
+start(); // don't forget to call it
+  
