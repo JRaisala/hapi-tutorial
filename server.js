@@ -3,6 +3,7 @@
 const Hapi = require('hapi');
 const Path = require('path')
 const Handlebars = require('handlebars')
+const Routes = require('./src/routes.js')
 
 // create new server instance and connection information
 const server = Hapi.server({
@@ -43,6 +44,8 @@ async function start () {
         path: './views',
 	})
 
+	// import routes
+	server.route(Routes);
 
 	// start your server
 	try {
@@ -55,31 +58,3 @@ async function start () {
 }
 
 start()
-
-server.route({
-    method: 'GET',
-    path: '/',
-    handler: (request, h) => {
-		var data = { name: 'Juha' }
-
-		return h.view('index', data);
-    }
-});
-
-server.route({
-    method: 'GET',
-    path: '/file.js',
-    handler: (request, h) => {
-
-		return h.file('./public/js/file.js');
-    }
-});
-
-server.route({
-    method: 'GET',
-    path: '/test1/{name}',
-    handler: (request, h) => {
-
-        return 'Hello, ' + encodeURIComponent(request.params.name) + '!';
-    }
-});
