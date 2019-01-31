@@ -4,6 +4,7 @@ const Hapi = require('hapi');
 const Path = require('path')
 const Handlebars = require('handlebars')
 const Routes = require('./src/routes.js')
+const Mongoose = require("mongoose")
 
 // create new server instance and connection information
 const server = Hapi.server({
@@ -58,3 +59,11 @@ async function start () {
 }
 
 start()
+
+Mongoose.connect('mongodb://homer:password1@ds139341.mlab.com:39341/hapi-tutorial-auth-server-db')
+
+const db = Mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+	console.log('Connected to the DB!!')
+})
