@@ -4,7 +4,6 @@ const Hapi = require('hapi');
 const Path = require('path')
 const Handlebars = require('handlebars')
 const Routes = require('./src/routes.js')
-const Mongoose = require("mongoose")
 
 // create new server instance and connection information
 const server = Hapi.server({
@@ -16,22 +15,19 @@ const server = Hapi.server({
 async function start () {
 	// register plugins to server instance
 	await server.register([
-		{
-		plugin: require('inert')
-		},
-		{
-		plugin: require('vision')
-		},
-		{
-		plugin: require('good'),
-		options: {
-			reporters: {
-			myConsoleReporter: [{
-				module: 'good-console'
-			}, 'stdout']
+		{ plugin: require('inert')}, // serving folders and files
+		{ plugin: require('vision')}, // handles templating
+		{ plugin: require('hapi-auth-basic')}, // providea basic auth
+		{ plugin: require('./src/db')}, // mongoose db
+		{ plugin: require('good'),
+			options: {
+				reporters: {
+				myConsoleReporter: [{
+					module: 'good-console'
+				}, 'stdout']
+				}
 			}
 		}
-	}
 	])
 
 	// view configuration
@@ -59,11 +55,3 @@ async function start () {
 }
 
 start()
-
-Mongoose.connect('mongodb://homer:password1@ds139341.mlab.com:39341/hapi-tutorial-auth-server-db')
-
-const db = Mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-	console.log('Connected to the DB!!')
-})
