@@ -2,40 +2,28 @@
 'use strict'
 
 const Routes = [
-/*{
-		method: 'GET',
-		path: '/',
-		handler: (request, h) => {
-			var data = { name: 'Juha' }
-	
-			return h.view('index', data);
-	}
-}*/{
+{
 	method: 'GET',
 	path: '/',
 	options: {
-		auth: 'basic'
+		auth: {
+			strategy: 'session'
+		}
 	},
-	handler: function (request, h) {
-
-		return 'welcome';
+	handler: (request, h) => {
+  
+		return h.view('./Login/index.html');
 	}
 },
 {
-    method: 'GET',
-    path: '/file.js',
-    handler: (request, h) => {
+  method: 'GET',
+  path: '/login',
+  config: {
+	handler: async function (request, h) {
 
-		return h.file('./public/js/file.js');
+		return h.view('./Login/index.html');
 	}
-},
-{
-    method: 'GET',
-    path: '/test1/{name}',
-    handler: (request, h) => {
-
-        return 'Hello, ' + encodeURIComponent(request.params.name) + '!';
-	}
+  }
 }
 ]
 
