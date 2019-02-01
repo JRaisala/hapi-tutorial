@@ -2,13 +2,23 @@
 'use strict'
 
 const Routes = [
-{
+/*{
 		method: 'GET',
 		path: '/',
 		handler: (request, h) => {
 			var data = { name: 'Juha' }
 	
 			return h.view('index', data);
+	}
+}*/{
+	method: 'GET',
+	path: '/',
+	options: {
+		auth: 'basic'
+	},
+	handler: function (request, h) {
+
+		return 'welcome';
 	}
 },
 {

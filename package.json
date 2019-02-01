@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -17,13 +19,18 @@
   },
   "homepage": "https://github.com/JRaisala/hapi-tutorial#readme",
   "dependencies": {
+    "bcrypt": "^3.0.3",
     "good": "^8.1.2",
     "good-console": "^7.1.0",
     "handlebars": "^4.0.12",
     "hapi": "^18.0.0",
+    "hapi-auth-basic": "^5.0.0",
     "inert": "^5.1.2",
     "mongoose": "^5.4.8",
     "path": "^0.12.7",
     "vision": "^5.4.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
   }
 }

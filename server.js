@@ -17,7 +17,8 @@ async function start () {
 	await server.register([
 		{ plugin: require('inert')}, // serving folders and files
 		{ plugin: require('vision')}, // handles templating
-		{ plugin: require('hapi-auth-basic')}, // providea basic auth
+		{ plugin: require('hapi-auth-basic')}, // provides basic auth
+		{ plugin: require('./src/auth/basic/')}, // provides basic auth
 		{ plugin: require('./src/db')}, // mongoose db
 		{ plugin: require('good'),
 			options: {
