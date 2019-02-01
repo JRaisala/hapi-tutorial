@@ -11,8 +11,13 @@ const Routes = [
 		}
 	},
 	handler: (request, h) => {
+
+		if (request.auth.isAuthenticated) {
+			return h.view('./index.html');
+		}   else {
   
-		return h.view('./Login/index.html');
+		return h.redirect('./Login/index.html');
+		}
 	}
 },
 {
