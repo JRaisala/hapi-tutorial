@@ -7,7 +7,8 @@ const Routes = [
 	path: '/',
 	options: {
 		auth: {
-			strategy: 'session'
+			strategy: 'session',
+			scope: 'admin'
 		}
 	},
 	handler: (request, h) => {
