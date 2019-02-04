@@ -2,12 +2,16 @@
 
 const Hapi = require('hapi');
 const Path = require('path')
+const Dotenv = require('dotenv')
 const Handlebars = require('handlebars')
 const Routes = require('./src/routes.js')
 
+// import environment variables from local secrets.env file
+Dotenv.config({ path: Path.resolve(__dirname, 'secrets.env') })
+
 // create new server instance and connection information
 const server = Hapi.server({
-    port: 3000,
+    port: process.env.PORT || 3000,
 	host: 'localhost'
 });
 

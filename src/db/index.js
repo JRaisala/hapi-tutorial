@@ -16,7 +16,8 @@ const register = async (server, cnf) => {
   
 	// Connect to your database
 	try {
-	  conn = await Mongoose.connect('mongodb://homer:password1@ds139341.mlab.com:39341/hapi-tutorial-auth-server-db', { useNewUrlParser: true });
+	  conn = await Mongoose.connect(process.env.DATABASE,
+	   { useNewUrlParser: true });
 	  console.log("✅ MongoDB connected")
 	  server.app.db = conn.db
 	  // server.app.models = { Book } // assign models
