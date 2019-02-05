@@ -25,7 +25,6 @@ async function start () {
 		//{ plugin: require('./src/auth/basic/')}, // provides basic auth
 		{ plugin: require('hapi-auth-cookie')}, // provides cookie auth
 		{ plugin: require('./src/auth/cookie/')}, // provides cookie auth
-		{ plugin: require('./src/db')}, // mongoose db
 		{ plugin: require('good'),
 			options: {
 				reporters: {
