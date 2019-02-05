@@ -4,7 +4,10 @@ const Hapi = require('hapi');
 const Path = require('path')
 const Dotenv = require('dotenv')
 const Handlebars = require('handlebars')
-const Routes = require('./src/routes.js')
+const HandlebarsRepeatHelper = require('handlebars-helper-repeat')
+
+// extend handlebars instance
+Handlebars.registerHelper('repeat', HandlebarsRepeatHelper)
 
 // import environment variables from local secrets.env file
 Dotenv.config({ path: Path.resolve(__dirname, 'secrets.env') })
@@ -19,13 +22,17 @@ const server = Hapi.server({
 async function start () {
 	// register plugins to server instance
 	await server.register([
-		{ plugin: require('inert')}, // serving folders and files
-		{ plugin: require('vision')}, // handles templating
-		//{ plugin: require('hapi-auth-basic')}, // provides basic auth
-		//{ plugin: require('./src/auth/basic/')}, // provides basic auth
-		{ plugin: require('hapi-auth-cookie')}, // provides cookie auth
-		{ plugin: require('./src/auth/cookie/')}, // provides cookie auth
-		{ plugin: require('good'),
+		{ 
+			plugin: require('inert') // serving folders and files
+		}, 
+		{ 
+			plugin: require('vision') // handles templating
+		}, 
+		{ 
+			plugin: require('hapi-auth-cookie') // provides cookie auth
+		}, 
+		{ 
+			plugin: require('good'),
 			options: {
 				reporters: {
 				myConsoleReporter: [{
@@ -35,7 +42,10 @@ async function start () {
 			}
 		},
 		{
-			plugin: require('./src/user-signup-login')
+			plugin: require('./server/base')
+		},
+		{
+			plugin: require('./server/user-signup-login')
 		  }
 	])
 
@@ -55,9 +65,6 @@ async function start () {
 		
  
 	})
-
-	// import routes
-	server.route(Routes);
 
 	// start your server
 	try {
