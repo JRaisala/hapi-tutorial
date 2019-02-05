@@ -59,11 +59,12 @@ async function start () {
 		path: viewsPath,
 		layoutPath: Path.resolve(viewsPath, 'layouts'),
 		layout: 'layout',
-		// helpersPath: Path.resolve(viewsPath, 'helpers'),
+		helpersPath: Path.resolve(viewsPath, 'helpers'),
 		partialsPath: Path.resolve(viewsPath, 'partials'),
-		// isCached: process.env.NODE_ENV === 'production',
-		
- 
+		isCached: process.env.NODE_ENV === 'production',
+		context: {
+		  title: 'Futureflix'
+		}
 	})
 
 	// start your server

@@ -11,16 +11,10 @@ const Handler = {
         redirectTo: false
       }
     },
-    handler: async function test (request, h) {
-      const [movies, shows] = await Promise.all([Movie.random(7), Show.random(6)])
+    handler: (request, h) => {
 
       return h.view(
         'index',
-        {
-          movie: _.first(movies), // gets a random movie
-          movies: _.slice(movies, 1),
-          shows
-        },
         { layout: 'hero' }
       )
     }
