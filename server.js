@@ -27,10 +27,13 @@ async function start () {
 		}, 
 		{ 
 			plugin: require('vision') // handles templating
-		}, 
-		{ 
-			plugin: require('hapi-auth-cookie') // provides cookie auth
-		}, 
+		},
+		{
+			plugin: require('./server/authentication')
+		  },
+		  {
+			  plugin: require('./server/add-user-to-request')
+		  },
 		{ 
 			plugin: require('good'),
 			options: {
@@ -45,6 +48,12 @@ async function start () {
 			plugin: require('./server/base')
 		},
 		{
+			plugin: require('./server/user-profile')
+		  },
+		  {
+			plugin: require('./server/add-user-to-views')
+		  },
+		  {
 			plugin: require('./server/user-signup-login')
 		  }
 	])

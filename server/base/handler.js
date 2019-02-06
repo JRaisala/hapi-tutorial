@@ -5,20 +5,23 @@ const Boom = require('boom')
 const Path = require('path')
 
 const Handler = {
-  index: {
-    plugins: {
-      'hapi-auth-cookie': {
-        redirectTo: false
-      }
-    },
-    handler: (request, h) => {
-
-      return h.view(
-        'index',
-        { layout: 'hero' }
-      )
-    }
-  },
+	index: {
+		plugins: {
+		  'hapi-auth-cookie': {
+			redirectTo: false
+		  }
+		},
+		handler: async function test (request, h) {
+	
+		  return h.view(
+			'index',
+			{
+			 
+			},
+			{ layout: 'hero' }
+		  )
+		}
+	  },
 
   css: {
     plugins: {
