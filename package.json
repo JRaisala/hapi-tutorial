@@ -25,6 +25,7 @@
     "dotenv": "^6.2.0",
     "good": "^8.1.2",
     "good-console": "^7.1.0",
+    "haikunator": "^2.0.0",
     "handlebars": "^4.0.12",
     "handlebars-helper-repeat": "^2.0.0",
     "hapi": "^18.0.0",
